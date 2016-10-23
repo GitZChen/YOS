@@ -14,12 +14,15 @@ import QBImagePickerController
 
 class UploadViewController: UIViewController, QBImagePickerControllerDelegate {
 
+    @IBOutlet weak var progressView: UIProgressView!
+    
     let imageManager : PHImageManager = PHImageManager()
+    var percentCompletions : [Double]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        progressView.progress = 0
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,14 +35,43 @@ class UploadViewController: UIViewController, QBImagePickerControllerDelegate {
         imagePickerVC.delegate = self
         imagePickerVC.allowsMultipleSelection = true
         imagePickerVC.showsNumberOfSelectedAssets = true
+        imagePickerVC.mediaType = .image
         self.present(imagePickerVC, animated: true, completion: nil)
     }
 
     func qb_imagePickerController(_ imagePickerController: QBImagePickerController!, didFinishPickingAssets assets: [Any]!) {
         self.dismiss(animated: true, completion: nil)
-        for asset in assets as! [PHAsset] {
+        percentCompletions = []
+        for i in 0..<assets.count {
+            let asset = assets[i] as! PHAsset
             if asset.mediaType == .image {
-                uploadImageAsset(asset: asset)
+                let uid = FIRAuth.auth()?.currentUser?.uid
+                let imageName : String = uid! + "+\(Int(NSDate().timeIntervalSince1970*100000))"
+                let imagesRef = FIRStorage.storage().reference(forURL: "gs://yosdatacollection.appspot.com").child("images/\(imageName)")
+                
+                
+                
+                imageManager.requestImageData(for: asset, options: nil) { (imageData, dataUTI, orientation, info) in
+                    if let imageData = imageData {
+                        let metadata : FIRStorageMetadata = FIRStorageMetadata()
+                        metadata.contentType = "image/jpeg"
+                        let uploadTask = imagesRef.put(imageData, metadata: metadata) { metadata, error in
+                            if let error = error {
+                                NSLog("Error uploading image to Storage: \(error)")
+                            } else {
+                                self.percentCompletions[i] = 1.0
+                                self.updateProgress()
+                            }
+                        }
+                        self.percentCompletions.insert(0, at: i)
+                        uploadTask.observe(.progress, handler: { (snapshot) in
+                            self.percentCompletions[i] = snapshot.progress!.fractionCompleted
+                            self.updateProgress()
+                        })
+                    } else {
+                        NSLog("Error getting image data!")
+                    }
+                }
             }
         }
     }
@@ -48,30 +80,9 @@ class UploadViewController: UIViewController, QBImagePickerControllerDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func uploadImageAsset(asset : PHAsset) {
-        let uid = FIRAuth.auth()?.currentUser?.uid
-        let imageName : String = uid! + "\(Int(NSDate().timeIntervalSince1970*100000))"
-        NSLog("ImageName: \(imageName)")
-        let imagesRef = FIRStorage.storage().reference(forURL: "gs://yosdatacollection.appspot.com").child("images/\(imageName)")
-        
-        
-        
-        imageManager.requestImageData(for: asset, options: nil) { (imageData, dataUTI, orientation, info) in
-            if let imageData = imageData {
-                let metadata : FIRStorageMetadata = FIRStorageMetadata()
-                metadata.contentType = "image/jpeg"
-                let uploadTask = imagesRef.put(imageData, metadata: metadata) { metadata, error in
-                    if let error = error {
-                        NSLog("Error uploading image to Storage: \(error)")
-                    }
-                }
-                uploadTask.observe(.progress, handler: { (snapshot) in
-                    NSLog("\(snapshot.progress!.fractionCompleted)")
-                })
-            } else {
-                NSLog("Error getting image data!")
-            }
-        }
+    func updateProgress() {
+        progressView.progress = Float(percentCompletions.average)
+        NSLog("verification: \(progressView.progress), \(dump(percentCompletions))")
     }
 
     /*
@@ -84,4 +95,15 @@ class UploadViewController: UIViewController, QBImagePickerControllerDelegate {
     }
     */
 
+}
+
+extension Array where Element: FloatingPoint {
+    /// Returns the sum of all elements in the array
+    var total: Element {
+        return reduce(0, +)
+    }
+    /// Returns the average of all elements in the array
+    var average: Element {
+        return isEmpty ? 0 : total / Element(count)
+    }
 }

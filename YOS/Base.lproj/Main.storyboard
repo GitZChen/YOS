@@ -9,8 +9,8 @@
         <!--Page View Controller-->
         <scene sceneID="m3U-R5-SWV">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7mX-EQ-WDv" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="66v-lx-7K2" customClass="PageViewController" customModule="YOS" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7mX-EQ-WDv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-97" y="-243"/>
         </scene>
@@ -108,15 +108,22 @@
                                     <action selector="choosePressed:" destination="AFI-lM-P1g" eventType="touchUpInside" id="tLB-uW-qyZ"/>
                                 </connections>
                             </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="LZC-3V-y8P"/>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="LZC-3V-y8P" secondAttribute="trailing" id="A1s-oo-vIN"/>
                             <constraint firstItem="P2p-Sn-bs0" firstAttribute="centerX" secondItem="rRZ-tg-aBG" secondAttribute="centerX" id="BZr-tw-hyd"/>
+                            <constraint firstItem="zIy-Io-vut" firstAttribute="top" secondItem="LZC-3V-y8P" secondAttribute="bottom" id="Kfn-E4-hxV"/>
                             <constraint firstItem="rfi-d6-krp" firstAttribute="top" secondItem="P2p-Sn-bs0" secondAttribute="bottom" constant="275" id="cgO-88-zvY"/>
                             <constraint firstItem="P2p-Sn-bs0" firstAttribute="top" secondItem="PbA-o0-5tS" secondAttribute="bottom" constant="100" id="lZa-gz-8Pr"/>
                             <constraint firstItem="rfi-d6-krp" firstAttribute="centerX" secondItem="rRZ-tg-aBG" secondAttribute="centerX" id="qHU-Mp-qog"/>
+                            <constraint firstItem="LZC-3V-y8P" firstAttribute="leading" secondItem="rRZ-tg-aBG" secondAttribute="leading" id="tVO-mB-kEV"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="progressView" destination="LZC-3V-y8P" id="jKe-iH-CMl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KDi-bB-YBp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
