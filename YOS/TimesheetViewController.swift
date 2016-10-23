@@ -28,6 +28,10 @@ class TimesheetViewController: UIViewController, UIWebViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func backButtonPressed(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
+    }
+    
     func webViewDidFinishLoad(_ webView: UIWebView) {
         loadingLabel.isHidden = true
     }

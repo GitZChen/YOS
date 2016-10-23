@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		91EB762F681B9F70FEFFEBA8 /* Pods_YOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09ABF2D1D48F57C61F073401 /* Pods_YOS.framework */; };
-		978DB88E1DB84D63002B8164 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978DB88D1DB84D63002B8164 /* PageViewController.swift */; };
 		978DB8901DB859D0002B8164 /* TimesheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978DB88F1DB859D0002B8164 /* TimesheetViewController.swift */; };
 		978DB8921DB859E4002B8164 /* UploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978DB8911DB859E4002B8164 /* UploadViewController.swift */; };
 		97EA2BCE1DB7A28100792DF7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EA2BCD1DB7A28100792DF7 /* AppDelegate.swift */; };
@@ -21,7 +20,6 @@
 /* Begin PBXFileReference section */
 		09ABF2D1D48F57C61F073401 /* Pods_YOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A4C18D2D56CE2D00823E58B /* Pods-YOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-YOS/Pods-YOS.release.xcconfig"; sourceTree = "<group>"; };
-		978DB88D1DB84D63002B8164 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		978DB88F1DB859D0002B8164 /* TimesheetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimesheetViewController.swift; sourceTree = "<group>"; };
 		978DB8911DB859E4002B8164 /* UploadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadViewController.swift; sourceTree = "<group>"; };
 		9799244F1DBC1043004012C0 /* YOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YOS.entitlements; sourceTree = "<group>"; };
@@ -70,7 +68,6 @@
 			children = (
 				9799244F1DBC1043004012C0 /* YOS.entitlements */,
 				97EA2BCD1DB7A28100792DF7 /* AppDelegate.swift */,
-				978DB88D1DB84D63002B8164 /* PageViewController.swift */,
 				978DB88F1DB859D0002B8164 /* TimesheetViewController.swift */,
 				978DB8911DB859E4002B8164 /* UploadViewController.swift */,
 				97EA2BD51DB7A28100792DF7 /* Main.storyboard */,
@@ -235,7 +232,6 @@
 			files = (
 				97EA2BCE1DB7A28100792DF7 /* AppDelegate.swift in Sources */,
 				978DB8921DB859E4002B8164 /* UploadViewController.swift in Sources */,
-				978DB88E1DB84D63002B8164 /* PageViewController.swift in Sources */,
 				978DB8901DB859D0002B8164 /* TimesheetViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

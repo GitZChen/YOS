@@ -30,6 +30,10 @@ class UploadViewController: UIViewController, QBImagePickerControllerDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func backButtonPressed(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func choosePressed(_ sender: UIButton) {
         let imagePickerVC : QBImagePickerController = QBImagePickerController()
         imagePickerVC.delegate = self
@@ -48,8 +52,6 @@ class UploadViewController: UIViewController, QBImagePickerControllerDelegate {
                 let uid = FIRAuth.auth()?.currentUser?.uid
                 let imageName : String = uid! + "+\(Int(NSDate().timeIntervalSince1970*100000))"
                 let imagesRef = FIRStorage.storage().reference(forURL: "gs://yosdatacollection.appspot.com").child("images/\(imageName)")
-                
-                
                 
                 imageManager.requestImageData(for: asset, options: nil) { (imageData, dataUTI, orientation, info) in
                     if let imageData = imageData {
@@ -82,7 +84,6 @@ class UploadViewController: UIViewController, QBImagePickerControllerDelegate {
     
     func updateProgress() {
         progressView.progress = Float(percentCompletions.average)
-        NSLog("verification: \(progressView.progress), \(dump(percentCompletions))")
     }
 
     /*
